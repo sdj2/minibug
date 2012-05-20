@@ -46,23 +46,24 @@
 */
 
 $active_group = 'default';
-$active_record = TRUE;
+$active_record = FALSE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
-$db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
-$db['default']['cache_on'] = FALSE;
-$db['default']['cachedir'] = '';
-$db['default']['char_set'] = 'utf8';
-$db['default']['dbcollat'] = 'utf8_general_ci';
-$db['default']['swap_pre'] = '';
-$db['default']['autoinit'] = TRUE;
-$db['default']['stricton'] = FALSE;
+$db['minibug']['hostname'] = 'localhost';
+$db['minibug']['username'] = 'minibug';
+$db['minibug']['password'] = 'TgsuRFPrbjxfCD3u';
+$db['minibug']['database'] = 'minibug';
+$db['minibug']['dbdriver'] = 'mysqli';
+$db['minibug']['dbprefix'] = '';
+$db['minibug']['pconnect'] = TRUE;
+$db['minibug']['db_debug'] = TRUE;
+$db['minibug']['cache_on'] = FALSE;
+$db['minibug']['cachedir'] = '';
+$db['minibug']['char_set'] = 'utf8';
+$db['minibug']['dbcollat'] = 'utf8_general_ci';
+$db['minibug']['swap_pre'] = '';
+$db['minibug']['autoinit'] = TRUE;
+$db['minibug']['stricton'] = FALSE;
+
 
 
 /* End of file database.php */
