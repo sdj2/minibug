@@ -8,26 +8,39 @@ class Bug extends CI_Controller {
 	}
 
 
-	public function index()
-	{
-		$bug_list = $this->Bug_Model->getList();
-//		$bug_status_list = $this->Minibug_Model->getBugStatuses();
+	public function index() {
+		return $this->get_all();
+	}
+
+	public function get_all($order='') {
+		if ($order) {
+			$bug_list = $this->Bug_Model->getList($order);
+		} else {
+			$bug_list = $this->Bug_Model->getList();
+		}
 
 		$view_bug_list = array( 'name' => 'bug_list' );
 		$view_bug_list['params']['bug_list'] = $bug_list;
 
 		$view_new_bug = array( 'name' => 'create_bug' );
-//		$view_new_bug['params']['bug_status_list'] = $bug_status_list;
 
 		$this->render_views( array( $view_new_bug, $view_bug_list ));
-
 	}
 
 	public function create() {
 		$title = $_POST['bug_title'];
 		$description = $_POST['bug_description'];
 		$create_success = $this->Bug_Model->create($title,$description);
-		$this->index();
+		redirect("index");
+	}
+
+	public function view($bug_id) {
+		$bug = $this->Bug_Model->get($bug_id);
+		$bug_hist = $this->Bug_Model->getHistory($bug_id);
+		$bug->history = $bug_hist;
+		$params = array();
+		$params['bug'] = $bug;
+		$this->render_view( 'view_bug' , $params );
 	}
 
 	public function edit($bug_id) {

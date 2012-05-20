@@ -7,9 +7,15 @@ class Bug_Model extends CI_Model {
 	}
 
 	function get($id) {
-		$sql_get_bug= "select name,description,created,status FROM bugs WHERE id = ?";
+		$sql_get_bug= "select id,name,description,created,status FROM bugs WHERE id = ?";
 		$query_get_bug= $this->db->query($sql_get_bug, array($id));
 		return $query_get_bug->row();
+	}
+
+	function getHistory($id) {
+		$sql_get_history= "select bug_id,new_status,changed FROM bug_status_history WHERE bug_id = ? ORDER BY changed";
+		$query_get_history= $this->db->query($sql_get_history, array($id));
+		return $query_get_history->result();
 	}
 
 	function getStatusList() {
@@ -38,7 +44,7 @@ class Bug_Model extends CI_Model {
 
 	// FIXME test result
 	function create($name,$description) {
-		$sql_create_bug = "insert into bugs (name,description,status) VALUES (?,?,'NEW');";
+		$sql_create_bug = "insert into bugs (name,description,status) VALUES (?,?,'NEW')";
 		$query_create_bug = $this->db->query($sql_create_bug,array($name,$description));
 		return true;
 	}
