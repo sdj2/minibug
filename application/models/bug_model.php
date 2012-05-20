@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//FIXME: For a scalable system, we would want to implement a lot of caching in this model
 class Bug_Model extends CI_Model {
 
 	function __construct() {
@@ -18,7 +19,6 @@ class Bug_Model extends CI_Model {
 		return $query_get_history->result();
 	}
 
-	//FIXME: in a real production service, we would cache this query's result
 	function getStatusList() {
 		$sql_get_bug_statuses = "select status from bug_status";
 		$query_get_bug_statuses = $this->db->query($sql_get_bug_statuses);
@@ -29,7 +29,7 @@ class Bug_Model extends CI_Model {
 		return $status_list;
 	}
 
-	function getList($order_by='id',$limit=10,$offset=0) {
+	function getList($order_by='id',$limit=10,$offset=0,$desc=FALSE) {
 		// validate order by param cheaply
 		if ( array_search($order_by,array('id','created','name','status')) === FALSE) {
 			return array('error' => "Invalid sort parameter");
@@ -46,7 +46,8 @@ class Bug_Model extends CI_Model {
 		$bugs['count'] = $query_num_bugs->row()->count;
 
 		// get result page
-		$sql_get_bugs = "select id,name,description,created,status from bugs ORDER BY $order_by LIMIT $limit OFFSET $offset";
+		$order_dir = $desc ? "DESC" : "";
+		$sql_get_bugs = "select id,name,description,created,status from bugs ORDER BY $order_by $order_dir LIMIT $limit OFFSET $offset";
 		$query_get_bugs = $this->db->query($sql_get_bugs);
 		$bugs['list'] = $query_get_bugs->result();
 		return $bugs;

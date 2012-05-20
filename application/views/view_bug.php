@@ -10,7 +10,7 @@
 		<dt>Created On </dt>
 		<dd><?php echo htmlentities($bug->created); ?></dd>
 		<dt>Description</dt>
-		<dd><?php echo htmlentities($bug->description); ?></dd>
+		<dd><?php echo $bug->description ? htmlentities($bug->description) : "&nbsp;"; ?></dd>
 		<dt>Bug Status History</dt>
 		<dd>
 			<?php if ($bug->history): ?>

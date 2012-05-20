@@ -15,10 +15,12 @@ class Bug extends CI_Controller {
 		return $this->get_all();
 	}
 
-	public function get_all($order='id',$start_index=0) {
+	public function get_all($order='id',$start_index=0,$direction="up") {
 		$results_per_page = 10;
 
-		$bugs = $this->Bug_Model->getList($order,$results_per_page,$start_index);
+		$desc = ($direction == 'down');
+
+		$bugs = $this->Bug_Model->getList($order,$results_per_page,$start_index,$desc);
 
 		if(isset($bugs['error'])) {
 			return $this->show_error($bugs['error']);
@@ -26,13 +28,14 @@ class Bug extends CI_Controller {
 
 		$this->load->library('pagination');
 		$pagination_config['base_url'] = site_url("get_all/$order");
+		$pagination_config['suffix'] = "/$direction";
 		$pagination_config['per_page'] = $results_per_page; 
 		$pagination_config['total_rows'] = $bugs['count'];
 		$this->pagination->initialize($pagination_config); 
 
 		$params = array();
 		$params['bug_list'] = $bugs['list'];
-
+		$params['sorting'] = array( 'order' => $order, 'desc' => $desc );
 		$params['pagination'] = $this->pagination->create_links();
 
 		$this->render_view( 'bug_list', $params );
@@ -65,7 +68,7 @@ class Bug extends CI_Controller {
 		$create_success = $this->Bug_Model->create($title,$description);
 		if($create_success === TRUE) {
 			$this->notices[] = "Bug Created";
-			return $this->get_all();
+			return $this->index();
 		} else {
 			$view_new_bug = array( 'name' => 'create_bug' );
 			$view_new_bug['params']['errors'] = $create_success;

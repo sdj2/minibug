@@ -1,3 +1,29 @@
+<?php
+
+function bug_list_th($sorting) {
+	$th = array();
+	$base = array();
+	$base['id'] = 'ID';
+	$base['name'] = 'Title';
+	$base['created'] = 'Created On';
+	$base['status'] = 'Status';
+	foreach ( $base as $index => $label ) {
+		$link = array();
+		$link['label'] = $label;
+		if ($index == $sorting['order']) {
+			if($sorting['desc']) {
+				$link['href'] = site_url("get_all/$index/0/up");
+			} else {
+				$link['href'] = site_url("get_all/$index/0/down");
+			}
+		} else {
+			$link['href'] = site_url("get_all/$index/0/up");
+		}
+		$th[] = $link;
+	}
+	return $th;
+}
+?>
 <div id="bug_list" class="minibug_content">
 	<h2>Bug List</h2>
 	<?php if ($pagination): ?>
@@ -6,10 +32,9 @@
 	<?php if ($bug_list): ?>
 		<table id="bug_list_table">
 			<tr>
-				<th><a href="<?php echo site_url('get_all/id');?>">ID</a></th>
-				<th><a href="<?php echo site_url('get_all/name');?>">Title</a></th>
-				<th><a href="<?php echo site_url('get_all/created');?>">Created On</a></th>
-				<th><a href="<?php echo site_url('get_all/status');?>">Status</a></th>
+				<?php foreach(bug_list_th($sorting) as $th): ?>
+					<th><a href="<?php echo $th['href'];?>"><?php echo $th['label'];?></a></th>
+				<?php endforeach; ?>
 			</tr>
 		<?php foreach ($bug_list as $bug):?>
 			<tr>
