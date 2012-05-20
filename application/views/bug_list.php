@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>MiniBug</title>
-</head>
-<body>
-
 <div id="bug_list">
 	<?php if ($bug_list): ?>
 		<?php foreach ($bug_list as $bug):?>
@@ -17,5 +10,3 @@
 	<?php endif; ?>
 
 </div>
-</body>
-</html>
