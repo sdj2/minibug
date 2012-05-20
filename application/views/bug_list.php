@@ -1,10 +1,10 @@
-<div id="bug_list">
-	<div id="bug_list_label">Bug List</div>
+<div id="bug_list" class="minibug_content">
+	<h2>Bug List</h2>
 	<?php if ($pagination): ?>
 		<div class='pagination'><?php echo $pagination; ?></div>
 	<?php endif; ?>
 	<?php if ($bug_list): ?>
-		<table id="bug_list_table" border="0" cellspacing="12">
+		<table id="bug_list_table">
 			<tr>
 				<th><a href="<?php echo site_url('get_all/id');?>">ID</a></th>
 				<th><a href="<?php echo site_url('get_all/name');?>">Title</a></th>

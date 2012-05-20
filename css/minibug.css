@@ -1,0 +1,21 @@
+div#banner { background-color: #d3d3d3; text-align: center; }
+div#banner h1 { font-size: 20pt; }
+div#banner h1 a:link { text-decoration: none; color: blue; }
+div#banner h1 a:visited { text-decoration: none; color: blue; }
+
+h2 { font-size: 16pt; }
+
+div.error { color: red; }
+div.notice { color: green; }
+
+div.minibug_content { float: left; }
+
+div.minibug_content table { border: 0; text-align: left}
+div.minibug_content th { padding: 4px; }
+div.minibug_content td { padding: 4px; }
+
+div.minibug_content dt { background-color: #bebebe; padding: 2px; }
+
+
+div.pagination { text-align: right; }
+

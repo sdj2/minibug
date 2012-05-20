@@ -9,8 +9,8 @@ function status_dropdown($r_in) {
 }
 ?>
 
-<div id="edit_bug">
-<div id="edit_bug_label">Edit Bug</div>
+<div id="edit_bug" class="minibug_content">
+<h2>Edit Bug</h2>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 <?php echo form_open(''); ?>
 <div id="edit_bug_title">

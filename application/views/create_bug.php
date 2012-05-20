@@ -1,5 +1,5 @@
-<div id="create_bug">
-<div id="create_bug_label">New Bug</div>
+<div id="create_bug" class="minibug_content">
+<h2>New Bug</h2>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 <?php echo form_open('/create'); ?>
 <div id="create_bug_title">
