@@ -6,6 +6,12 @@ class Bug_Model extends CI_Model {
 		$this->load->database('minibug');
 	}
 
+	function get($id) {
+		$sql_get_bug= "select name,description,created,status FROM bugs WHERE id = ?";
+		$query_get_bug= $this->db->query($sql_get_bug, array($id));
+		return $query_get_bug->row();
+	}
+
 	function getStatusList() {
 		$sql_get_bug_statuses = "select status from bug_status";
 		$query_get_bug_statuses = $this->db->query($sql_get_bug_statuses);
@@ -34,6 +40,13 @@ class Bug_Model extends CI_Model {
 	function create($name,$description) {
 		$sql_create_bug = "insert into bugs (name,description,status) VALUES (?,?,'NEW');";
 		$query_create_bug = $this->db->query($sql_create_bug,array($name,$description));
+		return true;
+	}
+
+	// FIXME test result
+	function update($id,$name,$description,$status) {
+		$sql_update_bug = "update bugs set name=?,description=?,status=? WHERE id=?;";
+		$query_update_bug = $this->db->query($sql_update_bug,array($name,$description,$status,$id));
 		return true;
 	}
 }

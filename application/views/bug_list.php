@@ -15,7 +15,7 @@
 				<td><?php echo $bug->created; ?>
 				<td><?php echo $bug->status; ?>
 				<td><a href="">view</a></td>
-				<td><a href="">edit</a></td>
+				<td><a href="edit/<?php echo $bug->id;?>">edit</a></td>
 			</tr>
 		<?php endforeach;?>
 		</table>
