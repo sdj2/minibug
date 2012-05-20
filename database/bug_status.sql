@@ -1,0 +1,1 @@
+INSERT INTO `bug_status` VALUES ('ACCEPTED'),('FIXED'),('NEW'),('REJECTED');
