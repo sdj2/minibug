@@ -30,7 +30,7 @@ class Bug_Model extends CI_Model {
 
 	function getList($order_by='created') {
 		// validate order by param cheaply
-		if ( array_search($order_by,array('created','name','status')) === FALSE) {
+		if ( array_search($order_by,array('id','created','name','status')) === FALSE) {
 //			throw new UnusualBehaviorException("invalid sort order: $order_by");
 //TODO: error handling
 			return null;
