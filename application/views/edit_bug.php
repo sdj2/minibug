@@ -10,13 +10,8 @@ function status_dropdown($r_in) {
 ?>
 
 <div id="edit_bug">
-<div id="edit_bug_label"><strong>Edit Bug</strong></div>
+<div id="edit_bug_label">Edit Bug</div>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
-<?php if($errors):?>
-	<?php foreach($errors as $msg): ?>
-		<div class="error"><?php echo $msg;?></div>
-	<?php endforeach; ?>
-<?php endif; ?>
 <?php echo form_open(''); ?>
 <div id="edit_bug_title">
 	<?php echo form_label("Title: ",'bug_title'); ?>

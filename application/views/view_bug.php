@@ -1,5 +1,5 @@
 <div id="view_bug">
-<div id="view_bug_label">View Bug</div>
+	<div id="view_bug_label">View Bug</div>
 	<dl id="bug_details">
 		<dt>ID</dt>
 		<dd><?php echo htmlentities($bug->id); ?></dd>
@@ -33,4 +33,5 @@
 		<div class="notice">Bug history not found.</div>
 	<?php endif; ?>
 	</div>
+	<a href="<?php echo site_url('edit/'.urlencode($bug->id));?>">Edit Bug</a></td>
 </div>

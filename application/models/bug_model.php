@@ -29,18 +29,29 @@ class Bug_Model extends CI_Model {
 		return $status_list;
 	}
 
-	function getList($order_by='id') {
+	function getList($order_by='id',$limit=10,$offset=0) {
 		// validate order by param cheaply
 		if ( array_search($order_by,array('id','created','name','status')) === FALSE) {
 			return array('error' => "Invalid sort parameter");
 		}
+		if (preg_match("/[^0-9]/",$limit) || preg_match("/[^0-9]/",$offset)) {
+			return array('error' => "Invalid pagination");
+		}
 
-		$sql_get_bugs = "select id,name,description,created,status from bugs ORDER BY $order_by";
+		$bugs = array();
+
+		// get count for pagination
+		$sql_num_bugs = "select count(*) as count FROM bugs";
+		$query_num_bugs = $this->db->query($sql_num_bugs);
+		$bugs['count'] = $query_num_bugs->row()->count;
+
+		// get result page
+		$sql_get_bugs = "select id,name,description,created,status from bugs ORDER BY $order_by LIMIT $limit OFFSET $offset";
 		$query_get_bugs = $this->db->query($sql_get_bugs);
-		return $query_get_bugs->result();
+		$bugs['list'] = $query_get_bugs->result();
+		return $bugs;
 	}
 
-	// FIXME test result
 	function create($name,$description) {
 		$sql_create_bug = "insert into bugs (name,description,status) VALUES (?,?,'NEW')";
 		$query_create_bug = $this->db->query($sql_create_bug,array($name,$description));
@@ -51,7 +62,6 @@ class Bug_Model extends CI_Model {
 		}
 	}
 
-	// FIXME test result
 	function update($id,$name,$description,$status) {
 		$sql_update_bug = "update bugs set name=?,description=?,status=? WHERE id=?;";
 		$query_update_bug = $this->db->query($sql_update_bug,array($name,$description,$status,$id));
