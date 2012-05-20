@@ -4,7 +4,8 @@
 <?php echo form_open('/create'); ?>
 <div id="create_bug_title">
 	<?php echo form_label("Title: ",'bug_title'); ?>
-	<?php echo form_input('bug_title'); ?>
+	<br>
+	<?php echo form_input(array('name'=>'bug_title','size'=>64)); ?>
 </div>
 <div id="create_bug_description">
 	<?php echo form_label("Description: ",'bug_description'); ?>

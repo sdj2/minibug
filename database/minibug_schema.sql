@@ -46,7 +46,7 @@ CREATE TABLE `bug_status_history` (
   KEY `changed` (`changed`),
   CONSTRAINT `bug_status_history_ibfk_1` FOREIGN KEY (`new_status`) REFERENCES `bug_status` (`status`) ON UPDATE CASCADE,
   CONSTRAINT `bug_status_history_ibfk_2` FOREIGN KEY (`bug_id`) REFERENCES `bugs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,14 +60,14 @@ CREATE TABLE `bugs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(256) NOT NULL,
   `description` text,
-  `status` varchar(64) NOT NULL,
+  `status` varchar(64) CHARACTER SET latin1 NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
-  KEY `name` (`name`),
+  KEY `name` (`name`(255)),
   KEY `created` (`created`),
   CONSTRAINT `bugs_ibfk_1` FOREIGN KEY (`status`) REFERENCES `bug_status` (`status`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -93,7 +93,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`sjohnson`@`localhost`*/ /*!50003 TRIGGER update_bug_status_hist_upd AFTER UPDATE ON bugs FOR EACH ROW INSERT INTO bug_status_history (bug_id,new_status) VALUES (NEW.id, NEW.status) */;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger update_bug_status_hist_upd BEFORE UPDATE ON bugs FOR EACH ROW BEGIN IF OLD.status != NEW.status THEN INSERT INTO bug_status_history (bug_id,new_status) VALUES (NEW.id, NEW.status); END IF; END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -109,4 +109,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-05-19 19:39:38
+-- Dump completed on 2012-05-20 14:04:12

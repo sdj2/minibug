@@ -15,7 +15,8 @@ function status_dropdown($r_in) {
 <?php echo form_open(''); ?>
 <div id="edit_bug_title">
 	<?php echo form_label("Title: ",'bug_title'); ?>
-	<?php echo form_input('bug_title',$bug->name); ?>
+	<br>
+	<?php echo form_input(array('name'=>'bug_title','value'=>$bug->name,'size'=>64)); ?>
 </div>
 <div id="edit_bug_status">
 	<?php echo form_label("Status: ",'bug_status'); ?>
