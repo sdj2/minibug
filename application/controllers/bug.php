@@ -2,11 +2,15 @@
 
 class Bug extends CI_Controller {
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('Bug_Model');
+	}
+
+
 	public function index()
 	{
-		$this->load->model('Minibug_Model');
-
-		$bug_list = $this->Minibug_Model->getBugList();
+		$bug_list = $this->Bug_Model->getList();
 //		$bug_status_list = $this->Minibug_Model->getBugStatuses();
 
 		$view_bug_list = array( 'name' => 'bug_list' );
@@ -17,6 +21,13 @@ class Bug extends CI_Controller {
 
 		$this->render_views( array( $view_new_bug, $view_bug_list ));
 
+	}
+
+	public function create() {
+		$title = $_POST['bug_title'];
+		$description = $_POST['bug_description'];
+		$create_success = $this->Bug_Model->create($title,$description);
+		$this->index();
 	}
 
 	private function render_views($views) {

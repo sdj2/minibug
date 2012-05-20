@@ -39,6 +39,7 @@
 */
 
 $route['default_controller'] = "bug";
+$route['(.*)'] = "bug/$1";
 $route['404_override'] = '';
 
 

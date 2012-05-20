@@ -1,6 +1,6 @@
 <div id="create_bug">
-<div id="create_bug_label"><strong>New Bug</strong></div>
-<?php echo form_open('create'); ?>
+<div id="create_bug_label">New Bug</div>
+<?php echo form_open('/create'); ?>
 <div id="create_bug_title">
 	<?php echo form_label("Title: ",'bug_title'); ?>
 	<?php echo form_input('bug_title'); ?>
