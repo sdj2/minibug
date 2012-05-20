@@ -7,7 +7,11 @@
 		<th><a href="<?php echo site_url('get_all/created');?>">Created On</a></th>
 		<th><a href="<?php echo site_url('get_all/status');?>">Status</a></th>
 	</tr>
-	<?php if ($bug_list): ?>
+	<?php if ($errors): ?>
+	<?php foreach($errors as $msg): ?>
+		<div class="error"><?php echo $msg;?></div>
+	<?php endforeach; ?>
+	<?php elseif ($bug_list): ?>
 		<?php foreach ($bug_list as $bug):?>
 			<tr>
 				<td><?php echo htmlentities($bug->id); ?>

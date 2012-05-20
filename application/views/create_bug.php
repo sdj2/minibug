@@ -1,5 +1,11 @@
 <div id="create_bug">
 <div id="create_bug_label">New Bug</div>
+<?php echo validation_errors('<div class="error">', '</div>'); ?>
+<?php if ($errors): ?>
+<?php foreach($errors as $msg): ?>
+	<div class="error"><?php echo $msg;?></div>
+<?php endforeach; ?>
+<?php endif; ?>
 <?php echo form_open('/create'); ?>
 <div id="create_bug_title">
 	<?php echo form_label("Title: ",'bug_title'); ?>

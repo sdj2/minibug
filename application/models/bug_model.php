@@ -18,6 +18,7 @@ class Bug_Model extends CI_Model {
 		return $query_get_history->result();
 	}
 
+	//FIXME: in a real production service, we would cache this query's result
 	function getStatusList() {
 		$sql_get_bug_statuses = "select status from bug_status";
 		$query_get_bug_statuses = $this->db->query($sql_get_bug_statuses);
@@ -28,15 +29,12 @@ class Bug_Model extends CI_Model {
 		return $status_list;
 	}
 
-	function getList($order_by='created') {
+	function getList($order_by='id') {
 		// validate order by param cheaply
 		if ( array_search($order_by,array('id','created','name','status')) === FALSE) {
-//			throw new UnusualBehaviorException("invalid sort order: $order_by");
-//TODO: error handling
-			return null;
+			return array('error' => "Invalid sort parameter");
 		}
 
-		// FIXME pagination optimization
 		$sql_get_bugs = "select id,name,description,created,status from bugs ORDER BY $order_by";
 		$query_get_bugs = $this->db->query($sql_get_bugs);
 		return $query_get_bugs->result();
@@ -46,13 +44,21 @@ class Bug_Model extends CI_Model {
 	function create($name,$description) {
 		$sql_create_bug = "insert into bugs (name,description,status) VALUES (?,?,'NEW')";
 		$query_create_bug = $this->db->query($sql_create_bug,array($name,$description));
-		return true;
+		if($query_create_bug) {
+			return true;
+		} else {
+			return array('error' => 'Database error');
+		}
 	}
 
 	// FIXME test result
 	function update($id,$name,$description,$status) {
 		$sql_update_bug = "update bugs set name=?,description=?,status=? WHERE id=?;";
 		$query_update_bug = $this->db->query($sql_update_bug,array($name,$description,$status,$id));
-		return true;
+		if($query_update_bug) {
+			return true;
+		} else {
+			return array('error' => 'Database error');
+		}
 	}
 }
