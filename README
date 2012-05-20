@@ -1,0 +1,13 @@
+General Notes / File Layout
+
+1. This mini bugtracker is as an example application on the CodeIgniter MVC framework.  The CodeIgniter baseline is in the first commit, everything after that is the application itself.
+2. MySQL sources can be found in database/.  Run the schema first, then the other two to install.
+3. PHP sources found mainly in application/{controllers,models,views}
+4. CSS found in css/.
+
+Design Notes
+
+As this is an example application, a number of potentially important features were omitted, namely:
+
+1. Multi-user support.  And because it has no concept of current user necessitating a session, the entire application is sessionless for the sake of simplicity.
+2. Caching.  Without a caching layer on top of the database, this application's scalability may be somewhat limited.  Integration with memcache (or similar) highly recommended.
